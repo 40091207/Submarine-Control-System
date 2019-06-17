@@ -1,0 +1,11 @@
+MACHINE
+    Sensors
+INCLUDES
+    Controller
+VARIABLES
+    serve, next
+INVARIANT
+    serve : NATURAL & next : NATURAL & serve <= next
+INITIALISATION
+    serve, next := 0,0
+END

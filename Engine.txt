@@ -1,0 +1,20 @@
+MACHINE Engine
+VARIABLES engine_power
+INVARIANT engine_power : NATURAL & engine_power >= 0 & engine_power <= 100
+INITIALISATION engine_power:= 0
+OPERATIONS
+    set_power(power) =
+        PRE power : NATURAL & power >= 0 & power <= 100
+        THEN IF engine_power + power > 100
+            THEN engine_power := 100
+            ELSE IF   engine_power + power < 100     
+                THEN engine_power := 0
+                ELSE engine_power := engine_power + power
+                END
+            END
+        END;
+    power <-- power_level =
+        power := engine_power;
+    disable_engine =
+         engine_power := 0      
+END

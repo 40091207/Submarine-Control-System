@@ -1,0 +1,20 @@
+MACHINE
+    Torpedo
+SETS
+    TORPEDOS; TORPEDO_STATE ={loaded,unloaded}
+VARIABLES
+    torpedo_state
+INVARIANT 
+    torpedo_state : TORPEDOS --> TORPEDO_STATE
+INITIALISATION
+    torpedo_state := TORPEDOS*{loaded}
+OPERATIONS
+    launch_torpedo(tt) =
+    PRE tt : TORPEDOS
+    THEN torpedo_state(tt) := unloaded
+    END;
+    reload_torpedo(tt) =
+    PRE tt : TORPEDOS
+    THEN torpedo_state(tt) := loaded
+    END
+END

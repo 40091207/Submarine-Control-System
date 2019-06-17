@@ -1,0 +1,16 @@
+MACHINE
+    Doors
+SETS DOORS; DOOR_STATE ={open,closed}
+VARIABLES door_state
+INVARIANT door_state : DOORS --> DOOR_STATE
+INITIALISATION door_state := DOORS*{closed}
+OPERATIONS
+    open_door(dd) = 
+    PRE dd : DOORS 
+    THEN door_state(dd) := open
+    END;
+    close_door(dd) =
+    PRE dd : DOORS
+    THEN door_state(dd) := closed
+    END
+END

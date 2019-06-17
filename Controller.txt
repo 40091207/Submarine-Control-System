@@ -1,0 +1,33 @@
+MACHINE
+    Controller
+INCLUDES 
+    Doors, Engine, BallastTanks, SteeringColumn, Torpedo, Sensors
+PROMOTES 
+    close_door, reload_torpedo
+SETS 
+    LOCK_STATUS={unlocked, locked}
+VARIABLES 
+    key_valid, lock_status
+INVARIANT 
+    lock_status : DOORS --> LOCK_STATUS & door_state~[{open}] <: lock_status~[{unlocked}] & key_valid : BOOL
+INITIALISATION 
+    lock_status, key_valid := DOORS*{locked}, FALSE
+OPERATIONS
+    opendoor(dd) =
+    PRE dd : DOORS & lock_status(dd) = unlocked & card(door_state∩DOORS*{closed}) > 1
+    THEN open_door(dd)
+    END;
+    unlock_door(dd) =
+    PRE dd : DOORS
+    THEN lock_status(dd) := unlocked
+    END;
+    lock_door(dd) =
+    PRE dd : DOORS & door_state(dd) = closed
+    THEN lock_status(dd) := locked
+    END;
+    
+    launchtorpedo(tt)=
+    PRE tt : TORPEDOS & key_valid = TRUE
+    THEN launch_torpedo(tt) 
+    END
+END

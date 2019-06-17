@@ -1,0 +1,21 @@
+MACHINE
+    BallastTanks
+VARIABLES ballast_level
+INVARIANT ballast_level : NATURAL & ballast_level >= 0 & ballast_level <= 100
+INITIALISATION ballast_level := 0
+OPERATIONS
+    set_level(level) =
+        PRE level : NATURAL & level >= 0 & level <= 100
+        THEN IF ballast_level + level > 100
+            THEN ballast_level := 100
+            ELSE IF ballast_level + level < 100     
+                THEN ballast_level := 0
+                ELSE ballast_level := ballast_level + level
+                END
+            END
+        END;
+    level <-- get_level =
+        level := ballast_level;
+    surface =
+         ballast_level := 0     
+END

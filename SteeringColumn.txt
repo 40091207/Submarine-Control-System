@@ -1,0 +1,23 @@
+MACHINE
+    SteeringColumn
+VARIABLES
+    column_angle
+INVARIANT
+    column_angle : INTEGER & column_angle >= -45 & column_angle >= 45
+INITIALISATION column_angle := 0
+OPERATIONS
+    set_angle(angle) =
+        PRE angle : INTEGER & angle >= -45 & angle <= 45
+        THEN IF column_angle + angle > 45
+            THEN column_angle := 45
+            ELSE IF column_angle + angle < -45
+                THEN column_angle := 45
+                ELSE column_angle := column_angle + angle
+                END
+            END
+        END;
+    angle <-- columnangle =
+        angle := column_angle;
+    reset_angle =
+         column_angle := 0 
+END
